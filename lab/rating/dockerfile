@@ -1,0 +1,19 @@
+# step1: หา os และ package
+# base package + base os
+FROM node:14.15.0-alpine3.12
+
+# step2: การทำงานเกี่ยวกับ source  code ->  copy source code เข้าไป images
+# ที่ๆ source code เราจะอยู่
+WORKDIR /usr/src/app/
+COPY src/ /usr/src/app/
+
+# step3: การลง dependencies
+# จะไปหา package.json และ npm i
+RUN npm install
+
+# step4: configuration
+# บอกว่า app นี้จะใช้ port 8080
+EXPOSE 8080
+# คำสั่งให้ทำอะไร -> node + ที่อยู่ของ app รันที่ port 8080
+CMD ["node", "/usr/src/app/ratings.js", "8080"]
+
